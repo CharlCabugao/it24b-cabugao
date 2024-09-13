@@ -1,0 +1,39 @@
+class Dog {
+   
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    
+    bark() {
+        return `${this.name} says Woof!`;
+    }
+
+    
+    getInfo() {
+        return `${this.name} is ${this.age} years old.`;
+    }
+
+    
+    setName(newName) {
+        this.name = newName;
+    }
+
+    
+    setAge(newAge) {
+        this.age = newAge;
+    }
+}
+
+
+const myDog = new Dog("labrador", 3);
+
+console.log(myDog.bark());
+console.log(myDog.getInfo());
+
+myDog.setName("kolot");
+myDog.setAge(9);
+
+console.log(myDog.bark());
+console.log(myDog.getInfo());
