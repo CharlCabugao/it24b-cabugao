@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Cards - Professional Style</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d5d6d8;
+            color: #333;
+        }
+
+        nav {
+            background-color: #003366;
+            padding: 15px;
+        }
+
+        .navbar-brand {
+            color: #ffffff !important;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+        }
+
+        .btn-outline-light {
+            border-color: #ffffff;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 40px 0;
+            color: #003366;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #000000;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            margin: 15px 0;
+            padding: 0 15px;
+            font-size: 1.6rem;
+            color: #003366;
+            font-weight: 500;
+        }
+
+        .card p {
+            padding: 0 15px 20px;
+            font-size: 1rem;
+            color: #000000;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #00509e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+        }
+
+        .button:hover {
+            background-color: #042040;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Dynamic Gallery</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+               
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Applets
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="applet-1.html">Applet 1</a></li>
+                            <li><a class="dropdown-item" href="applet-2.html">Applet 2</a></li>
+                            <li><a class="dropdown-item" href="applet-3.html">Applet 3</a></li>
+                            <li><a class="dropdown-item" href="applet-4.html">Applet 4</a></li>
+                            <li><a class="dropdown-item" href="applet-5.html">Applet 5</a></li>
+                            <li><a class="dropdown-item" href="applet-6.html">Applet 6</a></li>
+                            <li><a class="dropdown-item" href="applet-7.html">Applet 7</a></li>
+                            <li><a class="dropdown-item" href="applet-8.html">Applet 8</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<h2>My Dynamic Gallery</h2>
+
+<div class="card-container" id="cardContainer">
+</div>
+
+<script>
+    const cardData = [
+        { title: 'Ocean View', description: 'A serene view of the ocean waves.', imgSrc: 'C:/path/to/image1.jpg', link: '#' },
+        { title: 'Forest Path', description: 'A quiet path through the dense forest.', imgSrc: 'C:/path/to/image2.jpg', link: '#' },
+        { title: 'Mountain Peaks', description: 'Snow-capped mountains during sunset.', imgSrc: 'C:/path/to/image3.jpg', link: '#' },
+        { title: 'City Lights', description: 'Night cityscape with glowing lights.', imgSrc: 'C:/path/to/image4.jpg', link: '#' }
+    ];
+
+    function createDynamicCards() {
+        const cardContainer = document.getElementById('cardContainer');
+        
+        cardData.forEach(data => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            
+            const img = document.createElement('img');
+            img.src = data.imgSrc;
+            card.appendChild(img);
+            
+            const title = document.createElement('h3');
+            title.textContent = data.title;
+            card.appendChild(title);
+            
+            const desc = document.createElement('p');
+            desc.textContent = data.description;
+            card.appendChild(desc);
+            
+            const button = document.createElement('a');
+            button.href = data.link;
+            button.classList.add('button');
+            button.textContent = 'Learn More';
+            card.appendChild(button);
+            
+            cardContainer.appendChild(card);
+        });
+    }
+
+    createDynamicCards();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
