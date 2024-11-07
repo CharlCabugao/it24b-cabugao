@@ -1,15 +1,17 @@
 class TodoList {
     constructor() {
         this.editingIndex = -1;
+        this.clearButton = document.getElementById('clearButton');
         this.addButton = document.getElementById('addButton');
         this.todoInput = document.getElementById('todoInput');
         this.todoList = document.getElementById('todoList');
-
+        
+        this.clearButton.addEventListener('click', () => this.clearTasks());
         this.addButton.addEventListener('click', () => this.addOrUpdateTask());
         this.todoList.addEventListener('click', (e) => {
-            const action = e.target.classList.contains('removeButton') ? 'remove' : 
-                           e.target.classList.contains('editButton') ? 'edit' : 
-                           e.target.classList.contains('doneButton') ? 'done' : null;
+            const action = e.target.classList.contains('removeButton') ? 'remove' :
+                          e.target.classList.contains('editButton') ? 'edit' :
+                          e.target.classList.contains('doneButton') ? 'done' : null;
             if (action) this[action + 'Task'](e);
         });
     }
@@ -19,6 +21,7 @@ class TodoList {
         if (taskText) {
             this.editingIndex === -1 ? this.addTask(taskText) : this.updateTask(taskText);
             this.todoInput.value = '';
+            this.resetEditing();
         }
     }
 
@@ -26,12 +29,16 @@ class TodoList {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item todo-item';
         listItem.innerHTML = `
-            <span class="task-text">${taskText}</span>
-            <span class="timestamp" style="display: block; margin-top: 0.5rem; color: gray;">Date Added: ${new Date().toLocaleString()}</span>
-            <div style="margin-top: 0.5rem;">
-                <button class="btn btn-success btn-sm doneButton">Done</button>
-                <button class="btn btn-warning btn-sm editButton">Edit</button>
-                <button class="btn btn-danger btn-sm removeButton">Remove</button>
+            <div class="card">
+                <span class="task-text">${taskText}</span>
+                <span class="timestamp" style="display: block; margin-top: 0.5rem; color: gray;">
+                    Date Added: ${new Date().toLocaleString()}
+                </span>
+                <div style="margin-top: 0.5rem;">
+                    <button class="btn btn-success btn-sm doneButton">Done</button>
+                    <button class="btn btn-warning btn-sm editButton">Edit</button>
+                    <button class="btn btn-danger btn-sm removeButton">Remove</button>
+                </div>
             </div>
         `;
         this.todoList.appendChild(listItem);
@@ -62,17 +69,21 @@ class TodoList {
         this.addButton.textContent = 'Update';
     }
 
+
+clearTasks() {
+    this.todoList.innerHTML = '';
+}
+
     resetEditing() {
         this.editingIndex = -1;
         this.addButton.textContent = 'Add';
     }
-
 }
 
 class TimestampedTodoList extends TodoList {
     addTask(taskText) {
         super.addTask(taskText);
-        const taskItem = this.todoList.lastChild; // Get the newly added task
+        const taskItem = this.todoList.lastChild;
         const timestamp = document.createElement('span');
         timestamp.className = 'timestamp';
         timestamp.textContent = new Date().toLocaleString();
